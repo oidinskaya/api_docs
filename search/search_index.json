@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"],"fields":{"title":{"boost":1000.0},"text":{"boost":1.0},"tags":{"boost":1000000.0}}},"docs":[{"location":"api/","title":"\u0421\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a API","text":""}]}

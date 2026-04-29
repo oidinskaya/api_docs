@@ -1,0 +1,260 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Пример API для работы с пользователями",
+    "description": "API для создания, получения, обновления и удаления пользователей.",
+    "version": "1.0.0"
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.documentat.io/api/prod",
+      "description": "Основной сервер"
+    },
+    {
+      "url": "https://api.documentat.io/api/dev",
+      "description": "Тестовый сервер"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Получить список всех пользователей",
+        "description": "Метод позволяет получить список всех пользователей",
+        "operationId": "usersGET",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Максимальное количество элементов на странице",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserListSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Создать нового пользователя",
+        "description": "Метод позволяет создать нового пользователя",
+        "operationId": "usersPOST",
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/UserCreationSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Получить информацию о пользователе",
+        "description": "Метод позволяет получить информацию о пользователе по ID",
+        "operationId": "usersIdGET",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный идентификатор пользователя",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/UserNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Изменить все данные пользователя",
+        "description": "Метод позволяет обновить все поля пользователя с указанным ID",
+        "operationId": "usersIdPUT",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный идентификатор пользователя",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserUpdateSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/UserNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Изменить выбранные данные пользователя",
+        "description": "Метод позволяет обновить выбранные поля пользователя с указанным ID",
+        "operationId": "usersIdPATCH",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный идентификатор пользователя",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialUserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserUpdateSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/UserNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "422": {
+            "$ref": "#/components/responses/UnprocessableEntity"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить пользователя",
+        "description": "Метод позволяет удалить пользователя с указанным ID",
+        "operationId": "usersIdDELETE",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный идентификатор пользователя",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/UserDeleteSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/UserNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "Token",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "users",
+      "description": "Операции с пользователями"
+    }
+  ]
+}
