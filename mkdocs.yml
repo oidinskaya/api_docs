@@ -1,0 +1,15 @@
+site_name: Demo API Docs
+
+theme:
+  name: material
+
+nav:
+  - Overview: index.md
+  - Quickstart: quickstart.md
+  - Authentication: auth.md
+  - API Reference: api.md
+
+plugins:
+  - search
+  - swagger-ui-tag
+
