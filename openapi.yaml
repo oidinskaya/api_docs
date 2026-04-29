@@ -201,7 +201,7 @@ components:
           city: Тула
           street: Белкина
           house: 9а
-          
+
   schemas:
     User:
       type: object
@@ -222,18 +222,23 @@ components:
           description: Уникальный идентификатор пользователя
         username:
           type: string
-          description: Логин пользователя
+          description: Логин пользователя латиницей без пробелов и дефисов
           minLength: 3
           maxLength: 20
         email:
           type: string
+          format: email
           description: Адрес электронной почты пользователя
         firstName:
           type: string
           description: Имя пользователя
+          minLength: 0
+          maxLength: 30
         lastName:
           type: string
           description: Фамилия пользователя
+          minLength: 0
+          maxLength: 30
         address:
           type: object
           description: Адрес пользователя
@@ -258,6 +263,8 @@ components:
         age:
           type: integer
           description: Возраст пользователя
+          minLength: 0
+          maxLength: 120
         isEmployee:
           type: boolean
           default: true
@@ -289,18 +296,23 @@ components:
           description: Уникальный идентификатор пользователя
         username:
           type: string
-          description: Логин пользователя
+          description: Логин пользователя латиницей без пробелов и дефисов
           minLength: 3
           maxLength: 20
         email:
           type: string
+          format: email
           description: Адрес электронной почты пользователя
         firstName:
           type: string
           description: Имя пользователя
+          minLength: 0
+          maxLength: 30
         lastName:
           type: string
           description: Фамилия пользователя
+          minLength: 0
+          maxLength: 30
         address:
           type: object
           description: Адрес пользователя
@@ -325,6 +337,8 @@ components:
         age:
           type: integer
           description: Возраст пользователя
+          minLength: 0
+          maxLength: 120
         isEmployee:
           type: boolean
           default: true
@@ -347,16 +361,21 @@ components:
           description: Уникальный идентификатор пользователя
         username:
           type: string
-          description: Логин пользователя
+          description: Логин пользователя латиницей без пробелов и дефисов
         email:
           type: string
+          format: email
           description: Адрес электронной почты пользователя
         firstName:
           type: string
           description: Имя пользователя
+          minLength: 0
+          maxLength: 30
         lastName:
           type: string
           description: Фамилия пользователя
+          minLength: 0
+          maxLength: 30
         address:
           type: object
           description: Адрес пользователя
@@ -381,6 +400,8 @@ components:
         age:
           type: integer
           description: Возраст пользователя
+          minLength: 0
+          maxLength: 120
         isEmployee:
           type: boolean
           default: true
@@ -409,7 +430,7 @@ components:
           type: string
           description: Подробное описание ошибки
           example: Не найден ресурс
-          
+
 
   responses:
     UserListSuccess:
@@ -420,6 +441,9 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/User'
+          examples:
+            UserData:
+              $ref: '#/components/examples/userdata'
 
     Success:
       description: Данные успешно получены
